@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Game events</name>
+    <events>
+        <variable constant="1" name="SecondsPerObstacle" sid="1617386090584892" static="0" type="number">1</variable>
+        <variable constant="1" name="JumpStrength" sid="6706328064360653" static="0" type="number">500</variable>
+        <variable comment="in pixels per second" constant="1" name="SCROLLSPEED" sid="218429142858833" static="0" type="number">300</variable>
+        <variable constant="0" name="Score" sid="1620992456180981" static="0" type="number">0</variable>
+        <event-group description="" sid="2140906227666016" title="Start">
+            <sub-events>
+                <event-block sid="2246972820014324">
+                    <conditions>
+                        <condition id="-2" name="On start of layout" sid="7552674298305292" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Set text" sid="7981695657209981" type="ScoreText">
+                            <param id="0" name="Text">0</param>
+                        </action>
+                        <action id="5" name="Set web font" sid="8858143142522444" type="ScoreText">
+                            <param id="0" name="Family name">&quot;Erica One&quot;</param>
+                            <param id="1" name="CSS URL">&quot;http://fonts.googleapis.com/css?family=Erica+One&quot;</param>
+                        </action>
+                        <action id="-1" name="Set X" sid="8531867926373433" type="TiledBackground2">
+                            <param id="0" name="X">0</param>
+                        </action>
+                        <action id="-1" name="Set X" sid="7883271464586618" type="TiledBackground">
+                            <param id="0" name="X">0</param>
+                        </action>
+                        <action id="-9" name="Set value" sid="5362289503657037" type="System">
+                            <param id="0" name="Variable">Score</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                        <action id="-9" name="Destroy" sid="5327330446513932" type="TopPipe" />
+                        <action id="-9" name="Destroy" sid="2537032140936095" type="BottomPipe" />
+                        <action behavior="Platform" id="9" name="Set vector Y" sid="3452112360354654" type="Bird">
+                            <param id="0" name="Vector Y">-JUMPSTRENGTH</param>
+                        </action>
+                        <action id="-8" name="Set angle" sid="3978738267839223" type="Bird">
+                            <param id="0" name="Angle">320</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="1401058240807956" title="Movement">
+            <sub-events>
+                <comment>When we touch (or click) make the bird jump by setting a negative vector Y (as in, suddenly set the vertical speed to upwards).</comment>
+                <event-block any="1" sid="9923654974799748">
+                    <conditions>
+                        <condition id="0" name="On any touch start" sid="8630474439530806" type="Touch" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="9" name="Set vector Y" sid="8776672419371477" type="Bird">
+                            <param id="0" name="Vector Y">-JUMPSTRENGTH</param>
+                        </action>
+                        <action id="-8" name="Set angle" sid="4906042596798172" type="Bird">
+                            <param id="0" name="Angle">320</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Rotate the bird by 60 degrees per second.</comment>
+                <event-block sid="199979273240818">
+                    <conditions>
+                        <condition id="-1" name="Every tick" sid="7423593987601416" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="-18" name="Rotate clockwise" sid="5698124432107209" type="Bird">
+                            <param id="0" name="Degrees">60 * dt</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="9558025647412417" title="Collisions">
+            <sub-events>
+                <comment>End the game if the bird touches any obstacle or leaves the layout.</comment>
+                <event-block sid="170743918900562">
+                    <conditions>
+                        <condition id="1" name="Is overlapping another object" sid="6202042408238202" type="Bird">
+                            <param id="0" name="Object">TiledBackground2</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-25" name="Go to layout (by name)" sid="8905881445671172" type="System">
+                            <param id="0" name="Layout">&quot;Start&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="3130471190776897">
+                    <conditions>
+                        <condition id="1" name="Is overlapping another object" sid="7033929425378829" type="Bird">
+                            <param id="0" name="Object">TopPipe</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="8267426138872097" type="System">
+                            <param id="0" name="Layout">Start</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="6661993072735907">
+                    <conditions>
+                        <condition id="1" name="Is overlapping another object" sid="3428193040157849" type="Bird">
+                            <param id="0" name="Object">BottomPipe</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="2069251572717758" type="System">
+                            <param id="0" name="Layout">Start</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="9569398275688901">
+                    <conditions>
+                        <condition id="-4" name="Is outside layout" sid="3705447759395651" type="Bird" />
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="8628296172319708" type="System">
+                            <param id="0" name="Layout">Start</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="266602028472157" title="Scoring">
+            <sub-events>
+                <comment>The first time each bottom pipe goes past the bird to the left, add 1 to the score - but only do that once per pipe.</comment>
+                <event-block sid="2833117000651784">
+                    <conditions>
+                        <condition id="-1" name="Compare X" sid="7198601104534188" type="BottomPipe">
+                            <param id="0" name="Comparison">3</param>
+                            <param id="1" name="X co-ordinate">Bird.X</param>
+                        </condition>
+                        <condition id="-8" inverted="1" name="Is boolean instance variable set" sid="9504905685329225" type="BottomPipe">
+                            <param id="0" name="Instance variable">Scored</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-10" name="Add to" sid="3790862370660441" type="System">
+                            <param id="0" name="Variable">Score</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="0" name="Set text" sid="2102220205147441" type="ScoreText">
+                            <param id="0" name="Text">Score</param>
+                        </action>
+                        <action id="-13" name="Set boolean" sid="1602324242114971" type="BottomPipe">
+                            <param id="0" name="Instance variable">Scored</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="2217707378612145" title="Background">
+            <sub-events>
+                <comment>Keep the backgrounds moving to simulate motion.</comment>
+                <event-block sid="2060048028150518">
+                    <conditions>
+                        <condition id="-1" name="Compare X" sid="6540219589020234" type="TiledBackground">
+                            <param id="0" name="Comparison">3</param>
+                            <param id="1" name="X co-ordinate">-560</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-1" name="Set X" sid="9755675412106925" type="TiledBackground">
+                            <param id="0" name="X">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="30454140128404">
+                    <conditions>
+                        <condition id="-1" name="Compare X" sid="1203783992286391" type="TiledBackground2">
+                            <param id="0" name="Comparison">3</param>
+                            <param id="1" name="X co-ordinate">-410</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-1" name="Set X" sid="1132894759402688" type="TiledBackground2">
+                            <param id="0" name="X">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="1385689931601852">
+                    <conditions>
+                        <condition id="-1" name="Every tick" sid="1157976847664621" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="-1" name="Set X" sid="7511133595224626" type="BottomPipe">
+                            <param id="0" name="X">BottomPipe.X - SCROLLSPEED * dt</param>
+                        </action>
+                        <action id="-1" name="Set X" sid="8323998578270259" type="TopPipe">
+                            <param id="0" name="X">TopPipe.X - SCROLLSPEED * dt</param>
+                        </action>
+                        <action id="-1" name="Set X" sid="2196398092106341" type="TiledBackground2">
+                            <param id="0" name="X">TiledBackground2.X - SCROLLSPEED * dt</param>
+                        </action>
+                        <action id="-1" name="Set X" sid="9315588896493164" type="TiledBackground">
+                            <param id="0" name="X">TiledBackground.X -SCROLLSPEED * dt</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Destroy pipes going off the left of the screen so they don&apos;t keep going forever and slow the game down.</comment>
+                <event-block sid="6231531170117115">
+                    <conditions>
+                        <condition id="-1" name="Compare X" sid="109007821504928" type="TopPipe">
+                            <param id="0" name="Comparison">2</param>
+                            <param id="1" name="X co-ordinate">-50</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="3417791475090654" type="TopPipe" />
+                    </actions>
+                </event-block>
+                <event-block sid="7423873857133321">
+                    <conditions>
+                        <condition id="-1" name="Compare X" sid="4290919927271756" type="BottomPipe">
+                            <param id="0" name="Comparison">2</param>
+                            <param id="1" name="X co-ordinate">-50</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="1841480923535693" type="BottomPipe" />
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="9794049253184593" title="Obstacle">
+            <sub-events>
+                <comment>At regular intervals create new pipes to avoid.</comment>
+                <event-block sid="6640649658259165">
+                    <conditions>
+                        <condition id="-6" name="Every X seconds" sid="4811019573960773" type="System">
+                            <param id="0" name="Interval (seconds)">SECONDSPEROBSTACLE</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-3" name="Create object" sid="1739644477788794" type="System">
+                            <param id="0" name="Object to create">TopPipe</param>
+                            <param id="1" name="Layer">0</param>
+                            <param id="2" name="X">440</param>
+                            <param id="3" name="Y">random(50, -250)</param>
+                        </action>
+                        <action id="-3" name="Create object" sid="2527312937175583" type="System">
+                            <param id="0" name="Object to create">BottomPipe</param>
+                            <param id="1" name="Layer">0</param>
+                            <param id="2" name="X">440</param>
+                            <param id="3" name="Y">TopPipe.Y+ 750</param>
+                        </action>
+                        <action id="-24" name="Move to top" sid="3018461439072582" type="ScoreText" />
+                        <action id="-13" name="Set boolean" sid="3245580211538542" type="BottomPipe">
+                            <param id="0" name="Instance variable">Scored</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+    </events>
+</c2eventsheet>

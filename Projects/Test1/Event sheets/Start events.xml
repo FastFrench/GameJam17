@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Start events</name>
+    <events>
+        <event-block sid="8450924142424696">
+            <conditions>
+                <condition id="0" name="On clicked" sid="8769507891639029" type="ButtonPlay" />
+            </conditions>
+            <actions>
+                <action id="-2" name="Go to layout" sid="1321255376915732" type="System">
+                    <param id="0" name="Layout">Game</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="8396635392973638">
+            <conditions>
+                <condition id="0" name="On clicked" sid="8649054085373641" type="ButtonViewTutorial" />
+            </conditions>
+            <actions>
+                <action id="8" name="Open URL in new window" sid="1019312985089478" type="Browser">
+                    <param id="0" name="URL">&quot;https://www.scirra.com/tutorials/857/flappy-birds-clone-in-10-minutes&quot;</param>
+                    <param id="1" name="Tag">&quot;NewWindow&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>
